@@ -1,16 +1,35 @@
-# enkom_kw_mobile
+Checklist untuk tugas ini adalah sebagai berikut:
 
-A new Flutter project.
+1. Membuat sebuah program Flutter baru dengan tema inventory seperti tugas-tugas sebelumnya.
 
-## Getting Started
+Pertama-tama saya menginisialisasi project flutter baru di direktori C dengan menjalankan perintah berikut di command prompt.
 
-This project is a starting point for a Flutter application.
+flutter create enkom_kw_mobile
+cd enkom_kw_mobile
 
-A few resources to get you started if this is your first Flutter project:
+Lalu, saya menginisialisasi repository di GitHub dengan menjalankan perintah sebagai berikut:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/budf93/EnKomKWMobile.git
+git push -u origin main
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Membuat tiga tombol sederhana dengan ikon dan teks untuk:
+
+Melihat daftar item (Lihat Item)
+Menambah item (Tambah Item)
+Logout (Logout)
+
+3. Memunculkan Snackbar dengan tulisan:
+
+"Kamu telah menekan tombol Lihat Item" ketika tombol Lihat Item ditekan.
+"Kamu telah menekan tombol Tambah Item" ketika tombol Tambah Item ditekan.
+"Kamu telah menekan tombol Logout" ketika tombol Logout ditekan.
+
+4. Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
+
+Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?
+Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing.
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
