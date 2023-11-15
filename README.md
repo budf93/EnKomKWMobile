@@ -1,241 +1,380 @@
-Checklist untuk tugas ini adalah sebagai berikut:
+Nama : Fikri Budianto
+Kelas : PBP F
+NPM : 2206025306
 
-1. Membuat sebuah program Flutter baru dengan tema inventory seperti tugas-tugas sebelumnya.
+ - Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement(), disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!
+ <p>Singkatnya, method Navigator.push() digunakan untuk menambahkan rute lain ke atas tumpukan screen (stack) saat ini. Halaman baru ditampilkan di atas halaman sebelumnya dan pengguna dapat kembali ke halaman sebelumnya dengan cara menekan tombol back dan meng-pop stack layar sekarang.
 
-Pertama-tama saya menginisialisasi project flutter baru di direktori C dengan menjalankan perintah berikut di command prompt.
+ Contoh penggunaan Navigator.push() adalah ketika kita ingin masuk ke dalam suatu halaman baru yang bertujuan untuk menambahkan produk dan kembali menggunakan tombol kembali ketika kita sudah selesai menambahkan tombol produk.
+ 
+ Navigator.pushReplacement() memiliki fungsi yang kurang lebih sama dengan Navigator.push(). Namun, Navigator.pushReplacement() menggantikan stack layar teratas dan menggantikan stack layar tersebut dengan stack yang baru sehingga kita tidak bisa kembali ke layar yang stacknya sudah dihapus tersebut.
+ 
+ Contoh penggunaan Navigator.pushReplacement() adalah ketika kita ingin masuk ke halaman baru setelah menlakukan login. Ketika kita sudah melakukan login, tentunya kita tidak ingin kembali lagi ke halaman login tersebut sehingga agar ketika kita menekan tombol back kita tetap di halaman utama digunakanlah Navigator.pushReplacement()
+ </p>
 
-flutter create enkom_kw_mobile
-cd enkom_kw_mobile
+ - Jelaskan masing-masing layout widget pada Flutter dan konteks penggunaannya masing-masing!
+  - Container : Menampung widget lain dan menyediakan control terhadap dimensi, padding, margin, dan dekorasi widget tersebut. Digunakan untuk menampung dan mengatur style dari widget
+  - Row : Digunakan untuk mengatur widget secara horizontal
+  - Column : digunakan untuk mengatur widget secara vertikal 
+  - Stack : Digunakan untuk menumpuk widget di atas widget lain
+  - ListView : Digunakan untuk menampilkan daftar item yang banyaknya melebihi apa yang bisa ditampilkan pada layar dan membolehkan kita untuk melakukan scrolling terhadap daftar item tersebut.
+  - Expanded : Digunakan apabila kita ingin agar sebuah child widget mencakup seluruh luas layar pada sumbu tertentu 
+  
 
-Lalu, saya menginisialisasi repository di GitHub dengan menjalankan perintah sebagai berikut:
+ - Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!
+  Elemen input yang saya gunakan pada tugas kali ini adalah TextFormField. Elemen input ini saya gunakan karena TextFormField menyediakan beberapa fitur bawaan seperti validasi input dan styling sehingga memudahkan dalam membangun aplikasi.
 
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/budf93/EnKomKWMobile.git
-git push -u origin main
+ - Bagaimana penerapan clean architecture pada aplikasi Flutter?
+ Penerapan clean architecture pada aplikasi Flutter dapat dilakukan dengan membagi aplikasi menjadi 3 layer, diantaranya:
+  <p>
+  - Presentation layer yang mengurusi tampilan yang dilihat oleh pengguna
+  - Domain layer yang mengurusi business logic dari aplikasi sendiri
+  - Data layer yang mengurusi penyimpanan dan pengiriman data pada aplikasi</p>Dengan menerapkan hal tersebut, kita memperoleh beberapa manfaat, diantaranya: 
+     - Separation of concerns dimana masing-masing modul hanya mengurusi urusannya masing-masing sehingga aplikasi menjadi lebih modular dan lebih mudah dimaintain
+	 - Testability dimana kita menjadi lebih mudah membuat unit test karena masing-masing modul dites secara independen
+	 - Scalability dan maintainability dimana aplikasi yang kita buat menjadi lebih mudah untuk dikembangkan lebih lanjut dan untuk dimaintain karena masing-masing layer terpisah
 
-Lalu, saya merapikan struktur proyek dengan pertama-tama menambahkan kode ini di baris pertama berkas baru menu.dart di direktori enkom_kw_mobile/lib
-
+ - Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)
+ Untuk membuat halaman formulir pada aplikasi sekaligus validasinya, pertama-tama saya menambahkan kode berikut untuk mengimpor fungsi yang diperlukan:
+ ```dart
 import 'package:flutter/material.dart';
-
-Lalu, saya menambahkan kode baris ke-39 sampai akhir pada berkas main.dart ke file menu.dart yang baru saja dibuat. 
-
-Lalu, saya menambahkan kode berikut di awal file main.dart untuk menghilangkan error pada line ke-34 pada file main.dart.
-
-import 'package:shopping_list/menu.dart';
-
-2. Membuat tiga tombol sederhana dengan ikon dan teks untuk:
-
-Melihat daftar item (Lihat Item)
-Menambah item (Tambah Item)
-Logout (Logout)
-
-Pertama-tama, saya menambahkan kode berikut pada main.dart untuk mengubah warna aplikasi menjadi indigo.
-
-colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-
-Lalu, saya mengubah sifat widget halaman saya menjadi stateless dengan mengubah MyHomePage(title: 'Flutter Demo Home Page') menjadi MyHomePage().
-
-Lalu, pada file menu.dart, saya mengubah sifat widget halaman dari stateful menjadi stateless dengan cara mengubah bagian ({super.key, required this.title}) menjadi ({Key? key}) : super(key: key); dan menghapus final String title; sampai bawah serta menambahkan Widget build sehingga kode terlihat seperti di bawah:
-
-class MyHomePage extends StatelessWidget {
-    MyHomePage({Key? key}) : super(key: key);
-
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            ...
-        );
-    }
-}   
-
-Tidak lupa saya menghapus fungsi State yang ada dibawah bagian stateless widget ini.
-
-Setelah mengubah sifat widget halaman menu menjadi stateless, saya akan menambahkan teks dan card untuk memperlihatkan barang yang dijual.
-
-Pertama-tama, Untuk menambahkan teks dan card, saya menambahkan barang-barang yang dijual. saya memulai dengan define tipe pada list saya dengan cara menambahkan kode berikut.
-
-class ShopItem {
-  final String name;
-  final IconData icon;
-
-  ShopItem(this.name, this.icon);
+import 'package:enkom_kw_mobile/widgets/left_drawer.dart';
+```
+Lalu, untuk membuat halaman formulir beserta validasi untuk formulir tersebut, saya menambahkan kode berikut:
+```dart
+class ShopFormPage extends StatefulWidget {
+  		const ShopFormPage({super.key});
+  		@override
+  		State<ShopFormPage> createState() => _ShopFormPageState();
 }
-
-Lalu dibawah kode MyHomePage({Key? key}) : super(key: key);, saya menambahkan barang-barang yang dijual (nama, harga, dan icon barang tersebut).
-
-final List<ShopItem> items = [
-    ShopItem("Lihat Item", Icons.checklist),
-    ShopItem("Tambah Item", Icons.add_shopping_cart),
-    ShopItem("Logout", Icons.logout),
-];
-
-Selanjutnya saya menambahkan kode dibawah ini didalam Widget build.
-
-return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Shopping List',
+```
+```dart
+class _ShopFormPageState extends State<ShopFormPage> {
+  final _formKey = GlobalKey<FormState>();
+  String _name = "";
+  int _amount = 0;
+  int _price = 0;
+  String _description = "";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Center(
+            child: Text(
+              'Form Tambah Produk',
+            ),
+          ),
+          backgroundColor: Colors.indigo,
+          foregroundColor: Colors.white,
         ),
-      ),
-      body: SingleChildScrollView(
-        // Widget wrapper yang dapat discroll
-        child: Padding(
-          padding: const EdgeInsets.all(10.0), // Set padding dari halaman
-          child: Column(
-            // Widget untuk menampilkan children secara vertikal
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                // Widget Text untuk menampilkan tulisan dengan alignment center dan style yang sesuai
-                child: Text(
-                  'PBP Shop', // Text yang menandakan toko
+        drawer: const LeftDrawer(),
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Nama Produk",
+                    labelText: "Nama Produk",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _name = value!;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Nama tidak boleh kosong!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Jumlah",
+                    labelText: "Jumlah",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _price = int.parse(value!);
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Jumlah tidak boleh kosong!";
+                    }
+                    if (int.tryParse(value) == null) {
+                      return "Jumlah harus berupa angka!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Harga",
+                    labelText: "Harga",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _price = int.parse(value!);
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Harga tidak boleh kosong!";
+                    }
+                    if (int.tryParse(value) == null) {
+                      return "Harga harus berupa angka!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Deskripsi",
+                    labelText: "Deskripsi",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _description = value!;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Deskripsi tidak boleh kosong!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Produk berhasil tersimpan'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Nama: $_name'),
+                                    Text('Jumlah: $_amount'),
+                                    Text('Harga: $_price'),
+                                    Text('Deskripsi: $_description'),
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        _formKey.currentState!.reset();
+                      }
+                    },
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ));
+  }
+}
+```
+Pada kode tersebut, saya membuat widget TextFormField yang dibungkus oleh Padding sebagai salah satu children dari widget Column. Setelah itu, saya menambahkan atribut crossAxisAlignment untuk mengatur alignment children dari Column.
+Di dalam masing-masing widget TextFormField, saya menambahkan validasi-validasi yang sekiranya diperlukan untuk mencegah input yang invalid. Contohnya adalah validator berikut yang bertujuan untuk mengecek apakah deskripsi yang dimasukkan oleh user kosong atau tidak.
+```dart
+ validator: (String? value) {
+		if (value == null || value.isEmpty) {
+		  return "Deskripsi tidak boleh kosong!";
+		}
+		return null;
+},
+```
+Tombol save diimplementasikan dengan menambahkan kode berikut:
+```dart
+child: const Text(
+	  "Save",
+	  style: TextStyle(color: Colors.white),
+	),
+```
+Lalu, data dimunculkan dengan menambahkan kode berikut:
+```dart
+Align(
+	alignment: Alignment.bottomCenter,
+	child: Padding(
+	  padding: const EdgeInsets.all(8.0),
+	  child: ElevatedButton(
+		style: ButtonStyle(
+		  backgroundColor: MaterialStateProperty.all(Colors.indigo),
+		),
+		onPressed: () {
+		  if (_formKey.currentState!.validate()) {
+			showDialog(
+			  context: context,
+			  builder: (context) {
+				return AlertDialog(
+				  title: const Text('Produk berhasil tersimpan'),
+				  content: SingleChildScrollView(
+					child: Column(
+					  crossAxisAlignment: CrossAxisAlignment.start,
+					  children: [
+						Text('Nama: $_name'),
+						Text('Jumlah: $_amount'),
+						Text('Harga: $_price'),
+						Text('Deskripsi: $_description'),
+					  ],
+					),
+				  ),
+				  actions: [
+					TextButton(
+					  child: const Text('OK'),
+					  onPressed: () {
+						Navigator.pop(context);
+					  },
+					),
+				  ],
+				);
+			  },
+			);
+			_formKey.currentState!.reset();
+		  }
+		},
+		child: const Text(
+		  "Save",
+		  style: TextStyle(color: Colors.white),
+		),
+	  ),
+	),
+  ),
+```
+Pengguna akan diarahkan ke dalam form tambah item baru dengan menambahkan kode sebagai berikut:
+```dart
+  ListTile(
+	leading: const Icon(Icons.add_shopping_cart),
+	title: const Text('Tambah Item'),
+	// Bagian redirection ke ShopFormPage
+	onTap: () {
+	  Navigator.push(
+		  context,
+		  MaterialPageRoute(
+			  builder: (context) => const ShopFormPage()));
+	},
+  ),
+```
+Lalu, kita akan membuat drawer dimana drawer tersebut memiliki 2 tombol, yaitu halaman utam dan tambah item, dimana masing-masing tombol akan merouting pengguna ke tujuan yang diinginkan dengan menambahkan kode berikut:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:enkom_kw_mobile/screens/menu.dart';
+import 'package:enkom_kw_mobile/screens/shoplist_form.dart';
+
+class LeftDrawer extends StatelessWidget {
+  const LeftDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.indigo,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  'EnKomKWSuper',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-              ),
-              // Grid layout
-              GridView.count(
-                // Container pada card kita.
-                primary: true,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                children: items.map((ShopItem item) {
-                  // Iterasi untuk setiap item
-                  return ShopCard(item);
-                }).toList(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );  
-
-3. Memunculkan Snackbar dengan tulisan:
-
-"Kamu telah menekan tombol Lihat Item" ketika tombol Lihat Item ditekan.
-"Kamu telah menekan tombol Tambah Item" ketika tombol Tambah Item ditekan.
-"Kamu telah menekan tombol Logout" ketika tombol Logout ditekan.
-
-Hal ini saya lakukan dengan menambahkan widget stateless baru untuk menampilkan card dengan cara menambahkan kode sebagai berikut:
-
-class ShopCard extends StatelessWidget {
-  final ShopItem item;
-
-  const ShopCard(this.item, {super.key}); // Constructor
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.indigo,
-      child: InkWell(
-        // Area responsive terhadap sentuhan
-        onTap: () {
-          // Memunculkan SnackBar ketika diklik
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
-        },
-        child: Container(
-          // Container untuk menyimpan Icon dan Text
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
+                Padding(padding: EdgeInsets.all(10)),
                 Text(
-                  item.name,
+                  "Toko Laptop terpercayamu!",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white, // Set the text color to white
+                  ),
                 ),
               ],
             ),
           ),
-        ),
+          // TODO: Bagian routing
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Halaman Utama'),
+            // Bagian redirection ke MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHomePage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_shopping_cart),
+            title: const Text('Tambah Item'),
+            // Bagian redirection ke ShopFormPage
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ShopFormPage()));
+            },
+          ),
+        ],
       ),
     );
   }
 }
-
-Kode berikut ini bertujuan untuk memberi tahu pengguna bahwa pengguna telah menekan tombol tertentu.
-
-onTap: () {
-    // Memunculkan SnackBar ketika diklik
-    ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(SnackBar(
-        content: Text("Kamu telah menekan tombol ${item.name}!")));
-},
-
-4. Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
-
-Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?
-
-Stateless widget berarti apabila pengguna melakukan sesuatu di layar maka tidak terjadi perubahan pada layar. Stateful widget berarti apabila pengguna melakukan sesuatu seperti menekan tombol di layar maka langsung muncul suatu perubahan yang ada di layar.
-
-Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing.
-
-AppBar : Container yang memunculkan konten dan actions di bagian atas layar
-
-Column : Melayout child widget secara vertikal
-
-Container : Widget yang menggabungkan widget-widget untuk painting, positioning, dan sizing 
-
-ElevatedButton : Button yang materialnya naik apabila ditekan
-
-Icon : Icon berjenis material design
-
-Image : menampilkan sebuah foto
-
-Placeholder : Widget yang menggambar kotak yang mewakili lokasi widget lain suatu hari nanti akan ditambahkan
-
-Row : Melayout child widget dengan arah horizontal 
-
-Scaffold : Mengimplementasikan struktur visual layout material design dasar
-
-MyApp: Ini adalah widget utama yang mewakili aplikasi Flutter. Ini adalah turunan dari StatelessWidget. Ini digunakan sebagai root dari aplikasi.
-
-MaterialApp: Ini adalah widget yang menginisialisasi aplikasi Flutter dan mengatur berbagai parameter aplikasi seperti tema, judul, dan halaman beranda.
-
-title: Ini adalah properti yang menentukan judul aplikasi yang akan ditampilkan di bilah atas.
-
-theme: Ini adalah properti yang digunakan untuk mengatur tema aplikasi, termasuk warna dan gaya.
-
-ColorScheme: Ini adalah widget yang digunakan untuk mengatur skema warna aplikasi. Dalam contoh ini, warna dasar (seedColor) diatur ke Colors.indigo.
-
-useMaterial3: Ini adalah properti yang digunakan untuk mengaktifkan atau menonaktifkan fitur Material 3. Jika diatur ke true, maka aplikasi akan menggunakan Material 3.
-
-MyHomePage: Ini adalah halaman beranda dari aplikasi, yang kemudian akan ditampilkan di home properti MaterialApp.
-
-Text: Widget ini digunakan untuk menampilkan teks di dalam AppBar.
-
-ListView: Ini adalah widget yang digunakan untuk menggulirkan kontennya. Dalam hal ini, digunakan SingleChildScrollView untuk memungkinkan konten menggulir vertikal.
-
-Padding: Widget ini digunakan untuk menambahkan jarak atau bingkai di sekitar child widget-nya.
-
-GridView.count: Ini adalah widget yang digunakan untuk menampilkan daftar item dalam tata letak grid dengan jumlah kolom yang ditentukan.
-
-ShopItem: Ini adalah kelas yang digunakan untuk merepresentasikan item toko dengan nama dan ikonnya.
-
-ShopCard: Ini adalah widget yang digunakan untuk menampilkan item toko dalam bentuk kartu (card). Ini adalah turunan dari StatelessWidget.
-
-Material: Widget ini digunakan untuk memberikan latar belakang dengan warna dan efek material.
-
-InkWell: Ini adalah widget yang digunakan untuk menangani sentuhan dan memberikan respons ketika item toko ditekan.
-
-SnackBar: Ini adalah widget yang digunakan untuk menampilkan pesan kilat (flash message) ketika item toko ditekan.
+```
